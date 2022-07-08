@@ -1,0 +1,6 @@
+1. Incident commander name: Jagadeesh.K
+2. Executive Summary of what happened: Attackers tried to get control of cluster by launching three pods(minergate, monerpool, xmrpooldotnet) running three different crypto miners
+3. Summary of what was affected: Attackers managed to use cluster resources by running 3 crypto miners pods which lead to cluster performance and resource starvation.
+4. Summmry of the impact: High CPU usage of kubernetes cluster which impacts services performance and also tried to run pods on our cluster.
+5. Summary of the remediation steps: With the help of falco, grafana displayed high CPU usage which alarmed us to delete those pods immediately by following command - kubectl --kubeconfig kube_config_cluster.yml delete pod <pod_name> --grace-period=0 --force>
+6. Summary of lessons learned: As the alert manager comes into picture, the falco, prometheus and grafana are ready to catch all these malicious activities as expected. It's possible to use admission controllers to allow only certain images to be imported and started within the pods.

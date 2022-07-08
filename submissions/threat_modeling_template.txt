@@ -1,0 +1,24 @@
+Docker Threat Modeling
+Given Docker's system components and the STRIDE framework, identify five potential threats that may arise.
+1. Spoofing - There might be malicious images in the container layer which could expose the system to risk.
+2. Repudiation - Docker deamon may run with root privileges where the attacker can modify the configurations and leads to vulnerabilities.
+3, Tampering - With the default lossening docker certificate authentication, the attacker might access host or RKE cluster.
+4. Denial of Service - If any attacks like crypto mining happens and we don't limit the resource consumption, the container might use all the resources which leads to resource starvation and breakdown.
+5. Elevation of privilege - If container is not restricted from acquiring new privileges, the attacker with root access can monitor all the containers with no-new-privilege flag.
+
+Kubernetes Threat Modeling
+Given Kubernetes' system components and the STRIDE framework, identify five potential threats that may arise.
+Kubernetes Control Plane -
+1. Spoofing - By any chance if api-server is exposed to outside world, the attackers will try to access the crucuial component of the cluster which might lead to compromise of the entire cluster.
+2. Tampering - The etcd layer of kubernetes control layer handles all the system level configurations which can loose control to attackers if configurations changed.
+3. Denial of Service - With no resource limitations, any suspicious requests other than registered nodes is an attacker trying to use the resources.(crypto miners use resources).
+kubernetes Worker Nodes -
+4. Repudiation - With no proper kubelet authentication allowing anonymous and basic authentication, there can be mallicious attacks over multiple surfaces.
+5. Information Disclosure - etcd stores all the sensitive information of the cluster, if data is not encrypted and no restrictions the attackers might get the access to all the sensitive information like api-keys and secret keys.
+
+
+Docker-bench Run Results and Analysis
+From the failed findings, select and document 3 findings from the Docker-bench results that you want to harden based on the 5 attack surface areas you identified in Step 1. At least 1 of the 3 hardened findings should be different from the ones mentioned in the exercise (i.e. 5.10, 5.14, and 5.22).
+1. Information Disclosure -  2.2 Ensure network traffic is restricted between containers on the default bridge (Automated)
+2. Denial of Service - 5.10 Ensure that the memory usage for container is limited (Automated)
+3. Elevation of privilege - 5.25 Ensure that the container is restricted from acquiring additional privileges (Automated)

@@ -1,0 +1,4 @@
+1. How will you test the changes?
+A test-cluster which should obviously be a non-production environment which would mimic production cluster and easily achievable by declarative configurations needed in vagrant, cluster.yaml, helm charts etc ... Once the test cluster is tested thoroughly by directing a little amount production traffic, a Canary test should be set up in production environment and periodically increase the production traffic and monitor by prometheus and grafana.
+2. How will you ensure the changes don't negatively affect your cluster?
+The changes are tested in a non-production cluster by load balancing the traffic. Once the change appliced in production real time observability and monitoring tools like prometheus, grafana will be alerting the break downs in the cluster which helps to rollback to previous version of cluster.yaml as it will be version-controlled.
